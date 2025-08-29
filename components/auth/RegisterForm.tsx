@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
@@ -12,7 +12,14 @@ export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const router = useRouter();
-  const { signUp } = useAuth();
+  const { signUp, user, isLoading: authLoading } = useAuth();
+  
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (user && !authLoading) {
+      router.push('/polls');
+    }
+  }, [user, authLoading, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +46,26 @@ export default function RegisterForm() {
     }
   };
 
+  // Show loading state while checking auth status
+  if (authLoading) {
+    return (
+      <div className="w-full max-w-md mx-auto p-6 flex justify-center">
+        <div className="animate-pulse flex space-x-4">
+          <div className="flex-1 space-y-6 py-1">
+            <div className="h-2 bg-slate-200 rounded"></div>
+            <div className="space-y-3">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="h-2 bg-slate-200 rounded col-span-2"></div>
+                <div className="h-2 bg-slate-200 rounded col-span-1"></div>
+              </div>
+              <div className="h-2 bg-slate-200 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <div className="w-full max-w-md mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Create an Account</h1>
