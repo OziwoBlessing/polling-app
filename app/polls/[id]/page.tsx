@@ -42,7 +42,7 @@ export default async function PollPage({ params }: PollPageProps) {
   return (
     <div className="max-w-2xl mx-auto py-8 px-4">
       <div className="bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-2xl font-bold mb-2">{poll.question}</h1>
+        <h1 className="text-3xl font-bold mb-2 text-black">{poll.question}</h1>
         
         <div className="text-sm text-gray-500 mb-6">
           <p>Created on {new Date(poll.createdAt).toLocaleDateString()}</p>

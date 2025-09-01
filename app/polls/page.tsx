@@ -40,7 +40,7 @@ export default async function PollsPage() {
             key={poll.id}
             className="block bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow"
           >
-            <h2 className="text-xl font-semibold mb-2">{poll.question}</h2>
+            <h2 className="text-2xl font-semibold mb-2 text-black">{poll.question}</h2>
             <p className="text-gray-500 mb-4">{poll.options.length} options</p>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-400">{poll.votes} votes</span>
